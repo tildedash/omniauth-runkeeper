@@ -20,6 +20,6 @@ Gem::Specification.new do |s|
 
   s.add_development_dependency 'rake'
 
-  s.add_runtime_dependency 'omniauth-oauth2', '~> 1.0'
+  s.add_runtime_dependency 'omniauth-oauth2', '~> 1.4'
   s.add_runtime_dependency 'multi_json', '~> 1.0'
 end
