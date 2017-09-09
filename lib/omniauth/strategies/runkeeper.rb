@@ -28,16 +28,18 @@ module OmniAuth
         { :raw_info => raw_info }
       end
 
+      # Bugfix for regression introduced after omniauth-oauth2 v1.3.1
+      # details: https://github.com/intridea/omniauth-oauth2/issues/81
+      def callback_url
+        options[:callback_url] || (full_host + script_name + callback_path)
+      end
+
       def raw_info
         @raw_info ||= begin
           user    = MultiJson.decode(access_token.get('/user').body)
           profile = MultiJson.decode(access_token.get(user['profile']).body)
           { 'userID' => user['userID'] }.merge(profile)
         end
-      end
-
-      def query_string
-        '' # The code param shouldn't be sent as part of the callback_url in the callback phase
       end
     end
   end
